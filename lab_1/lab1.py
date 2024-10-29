@@ -1,18 +1,18 @@
 ############################################# IMPORTING ################################################
-import serial
-import sqlite3
-import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox as mess
-import tkinter.simpledialog as tsd
 import os
 import csv
 import cv2
-import datetime
 import time
+import datetime
 import threading
-from PIL import Image,ImageFont,ImageDraw
+import tkinter as tk
+import sqlite3
+import serial
 import qrcode
+
+from tkinter import ttk, messagebox as mess
+import tkinter.simpledialog as tsd
+from PIL import Image, ImageFont, ImageDraw
 from pushbullet import Pushbullet
 global v
 v=0
