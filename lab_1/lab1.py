@@ -18,36 +18,60 @@ global v
 v=0
 ############################################# FUNCTIONS ################################################
 
-def assure_path_exists(path):
+def assure_path_exists(path) -> None :
+    """
+    Ensures that the directory for the given file path exists.
+    If it does not exist, creates the directory.
+
+    """
     dir = os.path.dirname(path)
     if not os.path.exists(dir):
         os.makedirs(dir)
 
 ##################################################################################
 
-def tick():
+def tick() -> None :
+    """
+
+    Updates the clock label every 200 milliseconds with the current time.
+
+    """
     time_string = time.strftime('%H:%M:%S')
     clock.config(text=time_string)
     clock.after(200,tick)
 ###################################################################################
 
-def contact():
+def contact() -> None :
+    """
+    Displays a contact message in a pop-up window.
+    """
+
     mess._show(title='Contact us', message="Please contact us on : 'shubhamkumar8180323@gmail.com' ")
 
 ###################################################################################
 
-def label_reset():
+def label_reset() -> None:
+    """
+    Resets the message1 label to a default reminder message with a specific background color.
+    """
     message1.configure(text="Please  check  all  fields  properly  before  saving !", bg="#00aeff")
     return
 
 ####################################################################################
-def window2close():
+def window2close() -> None:
+    """
+    Closes the window2 Tkinter window and clears the stop_thread event.
+    """
     window2.destroy()
     stop_thread.clear()
 
 #################################################################################
 
-def RFID_scan():
+def RFID_scan() -> None:
+    """
+    Initiates an RFID scan, reads data from the specified serial port, and checks if the card is registered.
+    Displays the RFID code if it is unregistered or shows a warning if already registered.
+    """
     label_reset()
     try:
         ser1.close()
@@ -88,7 +112,10 @@ def RFID_scan():
 
 ###################################################################################
 
-def save_pass():
+def save_pass() -> None :
+    """
+    Saves or updates the password in the database after verifying old and new passwords.
+    """
     assure_path_exists("images\mfiles/")
     exists1 = os.path.isfile("images\mfiles\duinghr.db")
     if (not exists1):
@@ -138,7 +165,10 @@ def save_pass():
 
 ###################################################################################
 
-def change_pass():
+def change_pass() -> None:
+    """
+    Opens a new window for changing the password, allowing users to enter the old and new passwords.
+    """
     global master
     master = tk.Toplevel()
     master.geometry("400x190")
@@ -171,7 +201,11 @@ def change_pass():
 
 #####################################################################################
 
-def psw():
+def psw() -> None:
+    """
+    Prompts the user to enter the password to access secure actions.
+    If password is correct, grants access, otherwise shows an error.
+    """
     label_reset()
     assure_path_exists("images\mfiles/")
     exists1 = os.path.isfile("images\mfiles\duinghr.db")
@@ -207,7 +241,10 @@ def psw():
 
 ######################################################################################
 
-def clear():
+def clear() -> None:
+    """
+    Clears all input fields and resets the display messages to default.
+    """
     txt.delete(0, 'end')
     txt2.delete(0, 'end')
     txt3.delete(0, 'end')
@@ -220,7 +257,12 @@ def clear():
 
 #######################################################################################
 
-def saveprofile():
+def saveprofile() -> None:
+    """
+    Saves the profile details into 'Details.csv'. If the file does not exist, it creates one with headers.
+    It checks if an ID is already assigned to another person and prevents duplicate IDs.
+    Updates existing profile if v is set to 1, indicating an update operation.
+    """
     global rfid
     columns = ['RFID','','ID','', 'NAME','','DOB','','BLOOD GROUP','','PHONE NO.','','EMAIL ID','','ADDRESS']
     assure_path_exists("Details/")
@@ -284,7 +326,11 @@ def saveprofile():
 
 #########################################################################################
 
-def update_profile():
+def update_profile() -> None:
+    """
+    Opens the profile with the given ID for editing.
+    Loads the profile details from 'Details.csv' and fills them into the GUI fields.
+    """
     clear()
     label_reset()
     assure_path_exists('Details/')
@@ -326,7 +372,11 @@ def update_profile():
 
 ########################################################################################
 
-def sms(phone,name):
+def sms(phone,name) -> None:
+    """
+    Sends an SMS notification to the specified phone number using the Pushbullet API.
+    The message includes the name and timestamp of attendance.
+    """
     try:
         phone = '+91'+phone
         msg = name.upper() + " is marked present at " + timeStamp + " on " + date
@@ -339,7 +389,11 @@ def sms(phone,name):
 
 ########################################################################################
 
-def registration():
+def registration() -> None:
+    """
+    Opens a new registration window where users can fill out their personal details
+    and RFID information. The form allows adding, editing, and saving profiles.
+    """
     stop_thread.set()
     global window2
     window2=tk.Toplevel()
@@ -476,7 +530,10 @@ def registration():
 
 ############################################################################################3
 
-def make_icard():
+def make_icard() -> None:
+    """
+    Generates an I-card for a student based on the provided ID number.
+    """
     label_reset()
     assure_path_exists('images\sources\icard/')
     assure_path_exists('images\sources/')
@@ -559,7 +616,10 @@ def make_icard():
 
 ###########################################################################################
 
-def connect_attendance():
+def connect_attendance() -> None:
+    """
+    Initiates the connection to the attendance system via the specified port.
+    """
     global aport
     aport = (txt7.get())
     aport = aport.upper()
@@ -568,7 +628,10 @@ def connect_attendance():
     t1.start()
     return
 
-def start_attendance(aport):
+def start_attendance(aport) -> None:
+    """
+    Continuously reads RFID data from the specified serial port to mark attendance.
+    """
     global ts
     ts = time.time()
     global date
@@ -667,7 +730,10 @@ def start_attendance(aport):
             pass
 
 
-def disconnect_attendance():
+def disconnect_attendance() -> None:
+    """
+    Disconnect the attendance system.
+    """
     #mess._show(title='Disconnected', message='Device disconnected successfully')
     try:
         ser1.close()
