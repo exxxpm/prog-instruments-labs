@@ -78,7 +78,7 @@ def RFID_scan() -> None:
     except:
         pass
     i=0
-    global rfid
+    global rfid_code
     port = (txt9.get())
     print(port)
     try:
@@ -88,10 +88,10 @@ def RFID_scan() -> None:
         return
     while 1:
         data = ser.readline()
-        rfid = str(data[1:-2])
-        print(rfid)
-        if rfid != None:
-            rfidmsg.configure(text=rfid)
+        rfid_code = str(data[1:-2])
+        print(rfid_code)
+        if rfid_code != None:
+            rfidmsg.configure(text=rfid_code)
             break
     exists1 = os.path.isfile("Details\Details.csv")
     if exists1:
@@ -102,12 +102,12 @@ def RFID_scan() -> None:
                 if ((i > 1) and (i % 2 != 0)):
                     print(i)
                     print(str(lines[0]))
-                    if (str(lines[0]) == rfid):
+                    if (str(lines[0]) == rfid_code):
                         message1.configure(text="Card  is  already  registered,  please  take  a  new  card !!", bg="red")
                     else:
-                        rfidmsg.configure(text='RFID is : ' + rfid)
+                        rfidmsg.configure(text='RFID is : ' + rfid_code)
     else:
-        rfidmsg.configure(text='RFID is : '+rfid)
+        rfidmsg.configure(text='RFID is : '+rfid_code)
         return
 
 ###################################################################################
